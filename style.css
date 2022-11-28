@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap');
+
+body {
+	margin: 0
+}
+h1 {
+	margin: 0 0 50px 0;
+	font-size: 64px;
+}
+.conteiner {
+	height: 100vh;
+	align-items: center;
+	overflow: hidden;
+	margin: 0;
+	color: #fff;
+}
+.screen {
+	height: 100vh;
+	width: 100vw;
+	background:linear-gradient(90deg, #29323c 0%, #485563 100%);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.screen__title {
+	color: #fff;
+}
+.btn-start {
+	color: #fff;
+	text-decoration: none;
+	font-size: 26px;
+	transition: transform 0.15s;
+}
+.btn-start:hover {
+	transform: translate(0em, -0.25em);
+}
+.btn-start:active {
+  transform: translate(0em, 0.35em);
+}
+.time-btn {
+	width: 80px;
+	height: 40px;
+	cursor: pointer;
+	background: transparent;
+	border: 1px solid #fff;
+	color: #fff;
+	margin-right: 6px;
+}
+.time {
+}
+.time-list {
+	display: flex;
+	justify-content: center;
+	padding: 0;
+}
+.time-list li {
+	list-style-type: none;
+}
+.board {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-size: 45px;
+	position: relative;
+	width: 500px;
+	height: 500px;
+	background: linear-gradient(118.38deg, #29323c -4.6%, #485563 200.44%);
+	border-radius: 30px;
+	box-shadow: inset 0 0 25px;
+	overflow: hidden;
+}
+.screen-up {
+	margin-top: -100vh;
+}
+.hide {
+	opacity: 0;
+}
+.circle {
+  background: linear-gradient(90deg, #16d9e3 0%, #30c7ec 47%, #46aef7 100%);
+  position: absolute;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.primary {
+  color: #16d9e3;
+}
+.user-name {
+	width: 200px;
+	height: 200px;
+	background-color: #fff;
+}
+
+.repeat-btn {
+	font-family: 'Comfortaa', cursive;
+	cursor: pointer;
+	width: 70px;
+	height: 70px;
+	color: #c8adad;
+	border: 0;
+	border-radius: 50%;
+	background:linear-gradient(315deg, #175199 0%, #5b4040 74%);
+	animation: scale infinite linear 1.8s;
+}
+@keyframes scale {
+	from {
+		transform: scale(1);
+		box-shadow: 0 0 100px #fd0000;
+		font-size: 8px;
+	}
+	25% {
+		transform: scale(1.5);
+		font-size: 8px;
+	}	
+	50% {
+		transform: scale(2);
+		font-size: 9px;
+	}
+	75% {
+		transform: scale(1.5);
+		font-size: 8px;
+	}
+	to {
+		transform: scale(1);
+		font-size: 8px;
+	}
+}

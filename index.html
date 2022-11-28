@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./style.css">
+	<title>AIM Game</title>
+</head>
+<body>
+	<div class="conteiner">
+		<div class="screen">
+			<h1 class="screen__title">AIM Training</h1>
+			<a class="btn-start" href="#">Начать игру</a>
+		</div>
+		<div class="screen">
+			<h1 class="screen__title">Выберите время</h1>
+			<ul class="time-list">
+				<li>
+					<button class="time-btn">10 сек</button>
+				</li>
+				<li>
+					<button class="time-btn">20 сек</button>
+				</li>
+				<li>
+					<button class="time-btn">30 сек</button>
+				</li>
+				<li>
+					<button class="time-btn">40 сек</button>
+				</li>
+			</ul>
+		</div>
+		<div class="screen">
+			<h3 class="screen__title">Осталось <span class="time">00:00</span></h3>
+			<div class="board"></div>
+		</div>
+	</div>
+	<script src="./app.js"></script>
+</body>
+</html>
