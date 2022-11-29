@@ -22,6 +22,7 @@ h1 {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	transition: margin 1s ease-in-out;
 }
 .screen__title {
 	color: #fff;
@@ -74,8 +75,11 @@ h1 {
 .screen-up {
 	margin-top: -100vh;
 }
+.screen-down {
+	margin-top: 100vh;
+}
 .hide {
-	opacity: 0;
+	display: none;
 }
 .circle {
   background: linear-gradient(90deg, #16d9e3 0%, #30c7ec 47%, #46aef7 100%);
@@ -125,4 +129,8 @@ h1 {
 		transform: scale(1);
 		font-size: 8px;
 	}
+}
+.form-user {
+	display: flex;
+	flex-direction: column;
 }
