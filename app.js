@@ -141,15 +141,9 @@ function setUserName(e) {
 		name: userName.value,
 		score: score
 	}
-	if(JSON.parse(localStorage.getItem('muKey'))) {
-		let get = JSON.parse(localStorage.getItem('muKey'))
-		get.push(user)
-		saveUsers(get)
-	} else {
-		users.push(user)
-		saveUsers(users)
-	}	
-	// userName.value = ""
+
+	postUsersInServer(user)
+
 	board.children[0].remove()
 
 	const repeatBtn = document.createElement('button')
@@ -165,37 +159,32 @@ function setUserName(e) {
 		time.parentNode.classList.remove('hide')
 		score = 0
 	})
-	// 
-
-	// getUsersInLeaderBoard()
-	// hide('.leader-board')
 }
 
-
-// Функция заносит массив в локальное хранилище 
-function saveUsers(arr) {
-	let localStorageBoard = JSON.stringify(arr)
-	localStorage.setItem('myKey', localStorageBoard)
-}
 
 
 // Функция которая получает данные из локального хранилища + деструктуризация + создает доску лидеров и заносит в разметку данные имя и счет
-function getUsersInLeaderBoard() {
-JSON.parse(localStorage.getItem('myKey')).sort((a, b)=> b.score - a.score).forEach((obj)=> {
-	const {name, score} = obj
-	const leaderBoard = document.createElement('div')
-	leaderBoard.classList.add('leader-board')
-	leaderBoard.innerHTML = `${name}: ${score}`
-	screens[2].append(leaderBoard)
-})
+// function getUsersInLeaderBoard() {
+// JSON.parse(localStorage.getItem('myKey')).sort((a, b)=> b.score - a.score).forEach((obj)=> {
+// 	const {name, score} = obj
+// 	const leaderBoard = document.createElement('div')
+// 	leaderBoard.classList.add('leader-board')
+// 	leaderBoard.innerHTML = `${name}: ${score}`
+// 	screens[2].append(leaderBoard)
+// })
+// }
+
+
+
+// Функция отправление Post запроса на сервер и занесения данные о игроке и его счете.
+function postUsersInServer(obj) {
+	xhr = new XMLHttpRequest()
+	xhr.open('POST', 'https://628547d33060bbd34747b187.mockapi.io/api/postServer/users', true)
+	xhr.setRequestHeader('Content-type', 'application/json');
+	xhr.send(JSON.stringify(obj))
 }
 
 
-
-// function hide(className) {
-// let a = document.querySelector(className)
-// a.classList.add('hide')
-// }
 
 
 // Функция которая создает форму с импутом куда можно будет вносить имя игрока
