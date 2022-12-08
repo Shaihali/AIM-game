@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap');
 
 body {
-	margin: 0
+	margin: 0;
+	font-family: 'Comfortaa', cursive;
+	color: white;
 }
 h1 {
 	margin: 0 0 50px 0;
@@ -48,8 +50,7 @@ h1 {
 	color: #fff;
 	margin-right: 6px;
 }
-.time {
-}
+
 .time-list {
 	display: flex;
 	justify-content: center;
@@ -90,11 +91,6 @@ h1 {
 .primary {
   color: #16d9e3;
 }
-.user-name {
-	width: 200px;
-	height: 200px;
-	background-color: #fff;
-}
 
 .repeat-btn {
 	font-family: 'Comfortaa', cursive;
@@ -133,4 +129,61 @@ h1 {
 .form-user {
 	display: flex;
 	flex-direction: column;
+}
+.input-area {
+	border-radius: 20px;
+	height: 36px;
+	background-color: #264c5d;
+	outline: none;
+	color: #fff;
+}
+.input-btn {
+	margin: 10px 0;
+	border-radius: 20px;
+	background-color: #376568;
+	box-shadow: 8px 10px 14px 0px #000;
+	color: #fff;
+	cursor: pointer;
+}
+.scoreboard-btn {
+	position: absolute;
+	top: 14px;
+	left: 10px;
+	cursor: pointer;
+	transition: top 0.5s;
+}
+.scoreboard {
+	position: absolute;
+	top: -100vh;
+	left: 10px;
+	width: 300px;
+	height: auto;
+	background-color: #264c5d;
+	border-radius: 15px;
+	overflow: hidden;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	padding: 10px;
+	box-sizing: border-box;
+	box-shadow: 0 0 10px 0;
+}
+.user-name, .user-score {
+	flex: calc(90%/2);
+}
+.user-list, .score-list, .num-list {
+	margin-bottom: 5px;
+	border-bottom: 1px solid #fff;
+}
+.num-list {
+	border-top: 1px solid #fff;
+	border-radius: 50%;
+	text-align: center;
+	font-size: 15px;
+}
+.user-num {
+	margin-right: 8px;
+}
+.user-score {
+	text-align: end;
 }

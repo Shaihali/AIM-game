@@ -5,6 +5,8 @@ const btnTimes = document.querySelectorAll('.time-btn')
 const time = document.querySelector('.time')
 const board = document.querySelector('.board')
 const colors = ['red', 'yellow', 'black', 'orange', 'blue', 'green', 'grey', 'silver', 'gold', 'violet', 'pink', 'white']
+const scoreBoardBtn = document.querySelector('.scoreboard-btn')
+const scoreBoard = document.querySelector('.scoreboard')
 
 let timeX = 0
 let score = 0
@@ -55,6 +57,23 @@ board.addEventListener('click', (event) => {
 		--score
 		event.target.remove()
 	}
+})
+
+
+scoreBoardBtn.addEventListener('click', () => {
+	scoreBoardBtn.style.top = '-20px'
+	scoreBoard.style.top = '6px'
+	scoreBoard.style.transition = 'top 1.2s ease-out'
+	getUsersInServer(scoreBoard)
+
+	document.querySelector('.scoreboardExit').addEventListener('click', ()=> {
+		scoreBoard.style.top = '-100vh'
+		scoreBoardBtn.style.top = '14px'
+		scoreBoard.style.transition = 'top 0.5s linear'
+		document.querySelectorAll('.user-list, .score-list, .num-list').forEach((item)=> {
+			item.remove()
+		})
+	})
 })
 
 
@@ -177,13 +196,54 @@ function setUserName(e) {
 
 
 // Функция отправление Post запроса на сервер и занесения данные о игроке и его счете.
+// function postUsersInServer(obj) {
+// 	xhr = new XMLHttpRequest()
+// 	xhr.open('POST', 'https://628547d33060bbd34747b187.mockapi.io/api/postServer/users', true)
+// 	xhr.setRequestHeader('Content-Type', 'application/json');
+// 	xhr.send(JSON.stringify(obj))
+// }
 function postUsersInServer(obj) {
-	xhr = new XMLHttpRequest()
-	xhr.open('POST', 'https://628547d33060bbd34747b187.mockapi.io/api/postServer/users', true)
-	xhr.setRequestHeader('Content-type', 'application/json');
-	xhr.send(JSON.stringify(obj))
+	fetch('https://628547d33060bbd34747b187.mockapi.io/api/postServer/users', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(obj)
+	})
 }
 
+
+
+async function getUsersInServer(boardScore) {
+	let response = await fetch('https://628547d33060bbd34747b187.mockapi.io/api/postServer/users')
+	let result = await response.json()
+	let num = 1
+	result.sort((a, b)=> b.score - a.score).forEach((obj)=> {
+		const {name, score} = obj
+		const userList = document.createElement('div')
+		const scoreList = document.createElement('div')
+		const numList = document.createElement('div')
+		userList.classList.add('user-list')
+		scoreList.classList.add('score-list')
+		numList.classList.add('num-list')
+		userList.innerHTML = `${name}`
+		scoreList.innerHTML = ff(score)
+		numList.innerHTML = `${num++}`
+		boardScore.children[1].append(userList)
+		boardScore.children[2].append(scoreList)
+		boardScore.children[0].append(numList)
+	})
+}
+
+function ff(score) {
+	if(score > 5 || score === 0) {
+		return `${score} <font size='1.8px'>очков</font>`
+	}else if(score > 1 && score < 5) {
+		return `${score} <font size='1.8px'>очка</font>`
+	}else {
+		return `${score} <font size='1.8px'>очко</font>`
+	}
+}
 
 
 
@@ -225,8 +285,6 @@ function finishGame() {
 		
 	})
 }
-
-
 
 
 
