@@ -12,6 +12,7 @@ let timeX = 0
 let score = 0
 let interval = ""
 let users = []
+let data = 0
 
 
 
@@ -61,18 +62,15 @@ board.addEventListener('click', (event) => {
 
 
 scoreBoardBtn.addEventListener('click', () => {
-	scoreBoardBtn.style.top = '-20px'
-	scoreBoard.style.top = '6px'
-	scoreBoard.style.transition = 'top 1.2s ease-out'
-	getUsersInServer(scoreBoard)
-
+	showBoard()
+	if(data) {
+		showBoard()
+	}else {
+		// removeRendering()
+		getUsersInServer(scoreBoard)
+	}
 	document.querySelector('.scoreboardExit').addEventListener('click', ()=> {
-		scoreBoard.style.top = '-100vh'
-		scoreBoardBtn.style.top = '14px'
-		scoreBoard.style.transition = 'top 0.5s linear'
-		document.querySelectorAll('.user-list, .score-list, .num-list').forEach((item)=> {
-			item.remove()
-		})
+		hideBoard()
 	})
 })
 
@@ -162,6 +160,8 @@ function setUserName(e) {
 	}
 
 	postUsersInServer(user)
+	data = 0
+	removeRendering()
 
 	board.children[0].remove()
 
@@ -184,7 +184,7 @@ function setUserName(e) {
 
 // Функция которая получает данные из локального хранилища + деструктуризация + создает доску лидеров и заносит в разметку данные имя и счет
 // function getUsersInLeaderBoard() {
-// JSON.parse(localStorage.getItem('myKey')).sort((a, b)=> b.score - a.score).forEach((obj)=> {
+// JSON.parse(SessionStorage.getItem('myKey')).sort((a, b)=> b.score - a.score).forEach((obj)=> {
 // 	const {name, score} = obj
 // 	const leaderBoard = document.createElement('div')
 // 	leaderBoard.classList.add('leader-board')
@@ -216,32 +216,62 @@ function postUsersInServer(obj) {
 
 async function getUsersInServer(boardScore) {
 	let response = await fetch('https://628547d33060bbd34747b187.mockapi.io/api/postServer/users')
-	let result = await response.json()
+	data = await response.json()
+	rendering(boardScore)
+	return data
+}
+
+function rendering(boardScore) {
 	let num = 1
-	result.sort((a, b)=> b.score - a.score).forEach((obj)=> {
+	data.sort((a, b)=> b.score - a.score).forEach((obj)=> {
 		const {name, score} = obj
 		const userList = document.createElement('div')
 		const scoreList = document.createElement('div')
 		const numList = document.createElement('div')
+		const pointList =document.createElement('div')
 		userList.classList.add('user-list')
 		scoreList.classList.add('score-list')
 		numList.classList.add('num-list')
+		pointList.classList.add('point-list')
 		userList.innerHTML = `${name}`
-		scoreList.innerHTML = ff(score)
+		scoreList.innerHTML = `${score}`
 		numList.innerHTML = `${num++}`
+		pointList.innerHTML = ff(score)
 		boardScore.children[1].append(userList)
 		boardScore.children[2].append(scoreList)
 		boardScore.children[0].append(numList)
+		boardScore.children[3].append(pointList)
 	})
 }
 
+function removeRendering() {
+	document.querySelectorAll('.num-list, .user-list, .score-list, .point-list').forEach((item)=> {
+		item.remove()
+	})
+}
+
+function showBoard() {
+	scoreBoardBtn.style.top = '-20px'
+	scoreBoard.style.top = '6px'
+	scoreBoard.style.transition = 'top 1.2s ease-out'
+}
+
+function hideBoard() {
+	scoreBoard.style.top = '-100vh'
+	scoreBoardBtn.style.top = '14px'
+	scoreBoardBtn.style.transition = 'top 1.2s ease-in-out'
+	scoreBoard.style.transition = 'top 1.5s ease-in-out'
+}
+
+
+
 function ff(score) {
 	if(score > 5 || score === 0) {
-		return `${score} <font size='1.8px'>очков</font>`
+		return 'очков'
 	}else if(score > 1 && score < 5) {
-		return `${score} <font size='1.8px'>очка</font>`
+		return 'очка'
 	}else {
-		return `${score} <font size='1.8px'>очко</font>`
+		return 'очко'
 	}
 }
 
