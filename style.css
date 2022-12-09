@@ -150,7 +150,6 @@ h1 {
 	top: 14px;
 	left: 10px;
 	cursor: pointer;
-	transition: top 0.5s;
 }
 .scoreboard {
 	position: absolute;

@@ -66,11 +66,10 @@ scoreBoardBtn.addEventListener('click', () => {
 	if(data) {
 		showBoard()
 	}else {
-		// removeRendering()
 		getUsersInServer(scoreBoard)
 	}
 	document.querySelector('.scoreboardExit').addEventListener('click', ()=> {
-		hideBoard()
+		hideBoard(1)
 	})
 })
 
@@ -223,25 +222,33 @@ async function getUsersInServer(boardScore) {
 
 function rendering(boardScore) {
 	let num = 1
-	data.sort((a, b)=> b.score - a.score).forEach((obj)=> {
-		const {name, score} = obj
+	if(data.length === 0){
 		const userList = document.createElement('div')
-		const scoreList = document.createElement('div')
-		const numList = document.createElement('div')
-		const pointList =document.createElement('div')
 		userList.classList.add('user-list')
-		scoreList.classList.add('score-list')
-		numList.classList.add('num-list')
-		pointList.classList.add('point-list')
-		userList.innerHTML = `${name}`
-		scoreList.innerHTML = `${score}`
-		numList.innerHTML = `${num++}`
-		pointList.innerHTML = ff(score)
+		userList.style.border = 'none'
+		userList.innerHTML = 'Пусто...'
 		boardScore.children[1].append(userList)
-		boardScore.children[2].append(scoreList)
-		boardScore.children[0].append(numList)
-		boardScore.children[3].append(pointList)
-	})
+	}else {
+		data.sort((a, b)=> b.score - a.score).forEach((obj)=> {
+			const {name, score} = obj
+			const userList = document.createElement('div')
+			const scoreList = document.createElement('div')
+			const numList = document.createElement('div')
+			const pointList =document.createElement('div')
+			userList.classList.add('user-list')
+			scoreList.classList.add('score-list')
+			numList.classList.add('num-list')
+			pointList.classList.add('point-list')
+			userList.innerHTML = `${name}`
+			scoreList.innerHTML = `${score}`
+			numList.innerHTML = `${num++}`
+			pointList.innerHTML = ff(score)
+			boardScore.children[1].append(userList)
+			boardScore.children[2].append(scoreList)
+			boardScore.children[0].append(numList)
+			boardScore.children[3].append(pointList)
+		})
+	}
 }
 
 function removeRendering() {
@@ -253,17 +260,16 @@ function removeRendering() {
 function showBoard() {
 	scoreBoardBtn.style.top = '-20px'
 	scoreBoard.style.top = '6px'
+	scoreBoardBtn.style.transition = 'top 0.5s ease-in-out'
 	scoreBoard.style.transition = 'top 1.2s ease-out'
 }
 
-function hideBoard() {
+function hideBoard(speed) {
 	scoreBoard.style.top = '-100vh'
 	scoreBoardBtn.style.top = '14px'
-	scoreBoardBtn.style.transition = 'top 1.2s ease-in-out'
+	scoreBoardBtn.style.transition = `top ${speed}s ease-in-out`
 	scoreBoard.style.transition = 'top 1.5s ease-in-out'
 }
-
-
 
 function ff(score) {
 	if(score > 5 || score === 0) {
